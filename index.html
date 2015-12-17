@@ -1,1 +1,1027 @@
-Hello World
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <title>ECMAScript 6</title>
+    <link href="assets/css/ionic.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/keypoint.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/prettify.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/slides.css" rel="stylesheet" type="text/css">
+ 
+
+</head>
+
+<body>
+
+<div id="menu-btn" class="logo"></div>
+
+<div id="wrapper"></div>
+
+<div id="slides">
+
+<section>
+    <img src="img/js.png" style="max-height: 30%"/>
+    <h1 class="padding-top">Introduction to ECMAScript 6</h1>
+    <h3 class="padding-top">Alok choudhary<br/>@weboniselab</h3>
+</section>
+
+<!-- <section class="bg">
+    <img src="img/foo_bar2.jpg" style="width:150px;height:150px;border-radius:50%"/>
+    <div class="speaker-info">
+        <p><i class="icon ion-person"></i>foo bar</p>
+        <p><i class="icon ion-location"></i>Boston, MA</p>
+        <p><i class="icon ion-cloud"></i>Salesforce.com</p>
+        <p><i class="icon ion-social-twitter"></i><a href="https://twitter.com/cbar">@cbar</a></p>
+        <p><i class="icon ion-social-rss"></i><a href="http://bar.org/">http://bar.org</a></p>
+        <p><i class="icon ion-social-github"></i><a href="https://github.com/cbar">https://github.com/cbar</a></p>
+    </div>
+</section> -->
+
+<section>
+    <h1>Agenda</h1>
+    <div class="horizontal" >
+        <ul class="padding-top">
+            <li style="padding:.3rem">Status</li>
+            <li style="padding:.3rem">Variables & Constants</li>
+            <li style="padding:.3rem">Destructuring</li>
+            <li style="padding:.3rem">Arrow Functions</li>
+<!--             <li style="padding:.3rem">Promises</li>
+ -->        </ul>
+        <ul class="padding-top">
+            <li style="padding:.3rem">Modules</li>
+            <li style="padding:.3rem">Classes</li>
+            <li style="padding:.3rem">Template Strings</li>
+            <li style="padding:.3rem">Generators</li>
+            <li style="padding:.3rem">Collections</li>
+        </ul>
+    </div>
+</section>
+
+<section>
+    <h1>Terminology</h1>
+    <ul class="padding-top">
+        <li><em>JavaScript:</em> the language name</li>
+        <li><em>ECMAScript:</em> the language standard</li>
+        <li><em>TC 39:</em> the technical committee</li>
+        <li><em>ECMAScript Harmony:</em> post ES 5 improvements</li>
+        <li><em>ECMAScript.Next:</em> the code name for next version</li>
+        <li><em>ECMAScript 6:</em> the final name for next version</li>
+    </ul>
+</section>
+
+<section>
+    <h1>History</h1>
+    <ul class="padding-top">
+        <li><em>ECMAScript 1:</em> 1997</li>
+        <li><em>ECMAScript 2:</em> 1998</li>
+        <li><em>ECMAScript 3:</em> 1999</li>
+        <li><em>ECMAScript 4:</em> Abandoned</li>
+        <li><em>ECMAScript 5:</em> 2009</li>
+        <li><em>ECMAScript 6:</em> 2015</li>
+    </ul>
+</section>
+
+<section>
+    <h1>ECMAScript 6 Goals</h1>
+    <h2>Better support for:</h2>
+    <ol class="padding-top">
+        <li>Complex Apps</li>
+        <li>Libraries</li>
+        <li>Code Generators</li>
+    </ol>
+</section>
+
+<!-- <section>
+    <h1>Avoid fragmentation around core language features</h1>
+    <p>Modules, Promises, Classes, etc.</p>
+</section> -->
+
+<!-- <section>
+    <h2>Backward Compatibility</h2>
+    <h1 class="padding-top">“Thou shalt not break the web”</h1>
+    <p>i.e. can't change the way <em>var</em> works</p>
+</section> -->
+
+<!-- <section>
+    <h1>When can I use what?</h1>
+    <ul class="padding-top">
+        <li>Compatibility tables<br/>
+            i.e. <em><a href="https://kangax.github.io/compat-table/es6">https://kangax.github.io/compat-table/es6</a></em></li>
+        <li>Follow <em>@esdiscuss</em></li>
+    </ul>
+</section> -->
+
+<section>
+    <h1>Using ES6 Today</h1>
+    <h2>Transpilers</h2>
+    <ul class="padding-top">
+        <li><em>Babel</em><br/><a href="http://babeljs.io/">http://babeljs.io</a>
+        </li>
+        <li><em>Traceur</em><br/><a href="https://github.com/google/traceur-compiler">https://github.com/google/traceur-compiler</a></li>
+        </li>
+        <li><em>TypeScript</em><br/>
+            <span class="medium-text">(Superset of JavaScript that aims to align with ECMAScript 6)</span><br/><a href="http://www.typescriptlang.org/">http://www.typescriptlang.org</a></li>
+        </li>
+
+    </ul>
+</section>
+
+<section>
+    <img src="img/js.png"/>
+    <h1 class="padding-top">Constants and Variables</h1>
+</section>
+
+<section>
+<h1>var</h1>
+<h2>Function-Scoped</h2>
+<pre class="prettyprint">
+function divide(x, y) {
+    if (y !== 0) {
+        var result;
+        result = x / y;
+    }
+    return result;
+}
+console.log(divide(10, 2)); // 5
+</pre>
+</section>
+
+<section>
+    <h1>let</h1>
+    <h2>Block-Scoped</h2>
+<pre class="prettyprint">
+function divide(x, y) {
+    if (y !== 0) {
+        let result;
+        result = x / y;
+    }
+    return result;  // throws Error
+}
+console.log(divide(10, 2));
+</pre>
+</section>
+
+    <section>
+        <h1>const</h1>
+        <h2>Block-Scoped</h2>
+<pre class="prettyprint">
+const PI = 3.14159265359;
+const COLOR = {
+    name: "Red",
+    hexValue: "#FF0000"
+};
+</pre>
+        <p>Cannot be reassigned or redeclared</p>
+    </section>
+
+<section>
+<h1>Creating Objects from Variables</h1>
+<h2>ECMAScript 5</h2>
+<pre class="prettyprint">
+var firstName = "foo";
+var lastName = "bar";
+var twitterId = "@cbar";
+
+var speaker = {
+    firstName: firstName,
+    lastName: lastName,
+    twitterId: twitterId
+};
+</pre>
+</section>
+
+<section>
+<h1>Creating Objects from Variables</h1>
+<h2>ES6 Object Literals</h2>
+<pre class="prettyprint">
+let firstName = "foo";
+let lastName = "bar";
+let twitterId = "@cbar";
+
+let speaker = {firstName, lastName, twitterId};
+</pre>
+<p>Works with var too</p>
+</section>
+
+
+<section>
+    <img src="img/js.png"/>
+    <h1 class="padding-top">Destructuring</h1>
+    <p style="text-align: center">Extract data from arrays or objects using a syntax that mirrors the construction of array and object literals</p>
+</section>
+
+<section>
+<h1>Creating Variables from Array Elements</h1>
+<h2>ECMAScript 5</h2>
+<pre class="prettyprint">
+var colors = ["red", "green", "blue"];
+
+var primary   = colors[0];
+var secondary = colors[1];
+var tertiary  = colors[2];
+
+console.log(primary);   // red
+console.log(secondary); // green
+console.log(tertiary);  // blue
+</pre>
+</section>
+
+
+<section>
+<h1>Creating Variables from Array Elements</h1>
+<h2>ES 6 Array Destructuring</h2>
+<pre class="prettyprint">
+var colors = ["red", "green", "blue"];
+
+var [primary, secondary, tertiary] = colors;
+
+console.log(primary);   // red
+console.log(secondary); // green
+console.log(tertiary);  // blue
+</pre>
+</section>
+
+<section>
+<h1>Spread Operator</h1>
+<pre class="prettyprint padding-top">
+var colors = ["red", "green", "blue", "yellow", "orange"];
+
+var [primary, secondary, ...otherColors] = colors;
+
+console.log(primary);     // red
+console.log(secondary);   // green
+console.log(otherColors); // [ 'blue', 'yellow', 'orange']
+</pre>
+</section>
+
+<section>
+<h1>Functions with Multiple Return Values</h1>
+<pre class="prettyprint small">
+function getDate() {
+    var d = new Date();
+    return [d.getDate(), d.getMonth() + 1, d.getFullYear()];
+}
+
+var [day, month, year] = getDate();
+console.log(day);   // 4
+console.log(month); // 5
+console.log(year);  // 2015
+</pre>
+</section>
+
+
+<section>
+<h1>Creating Variables from Object Properties</h1>
+<h2>ECMAScript 5</h2>
+<pre class="prettyprint">
+var speaker = { firstName: "foo",
+                lastName: "bar",
+                twitterId: "@cbar" };
+
+var firstName = speaker.firstName;
+var lastName = speaker.lastName;
+var twitterId = speaker.twitterId;
+
+console.log(firstName); // foo
+console.log(lastName);  // bar
+console.log(twitterId); // @cbar
+</pre>
+    </section>
+
+<section>
+<h1>Creating Variables from Object Properties</h1>
+<h2>ES6 Object Destructuring</h2>
+<div class="vertical">
+<pre class="prettyprint small">
+var speaker = { firstName: "foo",
+                lastName: "bar",
+                twitterId: "@cbar" };
+
+var {firstName, lastName, twitterId} = speaker;
+
+console.log(firstName); // foo
+console.log(lastName);  // bar
+console.log(twitterId); // @cbar
+</pre>
+<pre class="prettyprint small build">
+var {fName: firstName, lName: lastName, twId:twitterId} = speaker;
+console.log(fName); // foo
+</pre>
+</div>
+</section>
+
+    <section>
+        <img src="img/js.png"/>
+        <h1 class="padding-top">Arrow Functions</h1>
+    </section>
+
+<section>
+<h1>ES5 Function</h1>
+<pre class="prettyprint">
+var greeting = function(message, name) {
+    return message + ' ' + name;
+}
+
+console.log(greeting('Hello', 'foo'));
+</pre>
+</section>
+
+<section>
+<h1>ES6 Arrow Function</h1>
+<div class="vertical">
+<pre class="prettyprint">
+var greeting = (message, name) => {
+    return message + ' ' + name;
+}
+</pre>
+<pre class="prettyprint build">
+var greeting = (message, name) => message + ' ' + name;
+</pre>
+<pre class="prettyprint build">
+var greeting = name  => 'Hello ' + name;
+</pre>
+</div>
+</section>
+
+<section>
+<h1>Another Example</h1>
+<div class="vertical">
+<pre class="prettyprint">
+var array = [1, 2, 3];
+var total = 0;
+array.forEach(function(item) {
+    total = total + item;
+});
+console.log(total);
+</pre>
+<pre class="prettyprint">
+var array = [1, 2, 3];
+var total = 0;
+array.forEach(item => total = total + item);
+console.log(total);
+</pre>
+</div>
+
+</section>
+
+    <section>
+        <h1>ECMAScript 5</h1>
+        <h2>“var self = this” <span style="font-style:italic">aka</span> “var that = this”</h2>
+<pre class="prettyprint">
+var obj = {
+    init: function () {
+        var self = this;
+        setTimeout(function() {
+            self.doSomething();
+        }, 1000);
+    },
+    doSomething: function() {
+        console.log("doing something in ES5");
+    }
+};
+obj.init();
+</pre>
+    </section>
+
+    <section>
+        <h1>ES 6 Arrow Functions</h1>
+        <h2>Lexical “this”</h2>
+<pre class="prettyprint">
+var obj = {
+    init: function() {
+        setTimeout(() => this.doSomething(), 1000);
+    },
+    doSomething: function() {
+        console.log("doing something in ES6");
+    }
+};
+obj.init();
+</pre>
+    </section>
+
+    <section>
+        <h1>Default Params</h1>
+        <div class="vertical">
+<pre class="prettyprint small">
+var greeting = (name, msg="Hello") => msg + ' ' + name;
+
+console.log(greeting('foo', 'Hi')); // Hi foo
+console.log(greeting('foo'));       // Hello foo
+</pre>
+            <div class="padding-top" style="text-align: center">
+                <span class="build">Works with "function" too:</span>
+            </div>
+<pre class="prettyprint build">
+function greeting(name, message="Hello") {
+    return message + ' ' + name;
+}
+</pre>
+        </div>
+    </section>
+
+
+
+<!-- <section>
+    <img src="img/js.png"/>
+    <h1 class="padding-top">Promises</h1>
+</section>
+ -->
+<!-- <section>
+<h1>Callback Pyramid of Doom</h1>
+<pre class="prettyprint">
+step1(function (value1) {
+    step2(value1, function(value2) {
+        step3(value2, function(value3) {
+            step4(value3, function(value4) {
+                // Do something with value4
+            });
+        });
+    });
+});
+</pre>
+<p class="small-text"><a href="https://github.com/kriskowal/q">https://github.com/kriskowal/q</a></p>
+</section> -->
+
+<!-- <section>
+    <h1>Callback Issues</h1>
+    <ol class="padding-top">
+        <li>Hard to compose (sequence and parallel)</li>
+        <li>Hard to handle error</li>
+        <li>Violates input params/return value semantic</li>
+    </ol>
+</section> -->
+
+<!-- <section>
+<h1>Promise</h1>
+<h2>Proxy for value that's not yet available</h2>
+<ul class="padding-top">
+    <ol>
+        <li>Async function returns promise</li>
+        <li>Caller attaches event handler to returned promise</li>
+        <li>Event handler handles result when it becomes available</li>
+    </ol>
+    <p>➝ Clean input params/return value function semantic</p>
+</ul>
+</section> -->
+
+<!--     <section>
+        <h1>q Promises</h1>
+        <h2>Using</h2>
+<pre class="prettyprint">
+Q.fcall(step1)
+    .then(step2)
+    .then(step3)
+    .then(step4)
+    .then(function(value4) {
+        // Do something with value4
+    })
+    .catch(function(error) {
+        // Handle any error from all above steps
+    })
+    .done();
+</pre>
+<p>think of <em>then(handler)</em> as <em>addEventListener("done", handler)</em></p>
+    </section> -->
+
+<!-- <section>
+    <h1>q Promises</h1>
+    <h2>Defining</h2>
+<pre class="prettyprint small">
+function step1() {
+    var deferred = Q.defer();
+    FS.readFile("foo.txt", "utf-8", function (error, text) {
+        if (error) {
+            deferred.reject(new Error(error));
+        } else {
+            deferred.resolve(text);
+        }
+    });
+    return deferred.promise;
+}
+</pre>
+</section> -->
+
+<!--     <section>
+        <h1>jQuery Promises</h1>
+        <h2>Using</h2>
+<pre class="prettyprint">
+service.getList()
+    .done(function(list) {
+        console.log(list);
+    })
+    .fail(function(error) {
+        console.log(error);
+    });
+</pre>
+    </section>
+ -->
+<!--     <section>
+<h1>jQuery Promises</h1>
+<h2>Defining</h2>
+<pre class="prettyprint">
+function getList() {
+    var deferred = $.Deferred();
+    if (list) {
+        deferred.resolve(list);
+    } else {
+        deferred.reject("no list");
+    }
+    return deferred.promise();
+}
+</pre>
+</section> -->
+
+<!-- <section>
+<h1>ECMAScript 6 Promises</h1>
+<h2>Defining</h2>
+<pre class="prettyprint">
+function timeout(millis) {
+    var promise = new Promise(function (resolve, reject) {
+        setTimeout(function() {
+            resolve();
+        }, millis);
+    });
+    return promise;
+}
+</pre>
+<p>Promisified setTimeout()</p>
+</section> -->
+
+<!-- <section>
+<h1>ECMAScript 6 Promises</h1>
+<h2>Using</h2>
+<pre class="prettyprint">
+timeout(1000).then(function() {
+    console.log('done waiting');
+});
+</pre>
+<p>Promisified setTimeout()</p>
+</section> -->
+
+<!-- <section>
+<h1>ECMAScript 6 Promises</h1>
+<h2>Defining Mock Data Service</h2>
+<pre class="prettyprint">
+var employees;
+
+function findAll() {
+    return new Promise(function (resolve, reject) {
+        if (employees) {
+            resolve(employees);
+        } else {
+            reject("employees is not defined");
+        }
+    });
+}
+</pre> -->
+<!-- </section> -->
+
+<!-- <section>
+<h1>ECMAScript 6 Promises</h1>
+<h2>Using Mock Data Service</h2>
+<pre class="prettyprint">
+findAll()
+    .then(function(employees) {
+        console.log(employees);
+    })
+    .catch(function(error) {
+        console.log(error);
+    });
+</pre>
+</section> -->
+
+<section>
+    <img src="img/js.png"/>
+    <h1 class="padding-top">Modules</h1>
+</section>
+
+<div class="slide">
+    <img src="img/requirejs.html" class="large" />
+</div>
+
+
+<!-- <section>
+<h1>AMD Module</h1>
+<pre class="prettyprint small">
+define(function (require) {
+
+    var $ = require('jquery');
+
+    var findAll = function() {
+        // implementation
+    };
+
+    var findById = function(id) {
+        // implementation
+    };
+
+    return {
+        findAll: findAll,
+        findById: findById
+    };
+
+});
+</pre>
+    </section> -->
+
+<!--     <section>
+        <h1>Common.js Module</h1>
+<pre class="prettyprint">
+var findAll = function () {
+    // implementation
+};
+
+var findById = function(id) {
+    // implementation
+};
+
+module.exports = {
+    findAll: findAll,
+    findById: findById
+};
+</pre>
+</section> -->
+
+
+<section>
+    <h1>ECMAScript 6 Modules</h1>
+    <h2>Defining</h2>
+<pre class="prettyprint">
+// datelib.js
+export const today = new Date();
+
+export var shortDate = function() {
+    return today.getMonth() + 1 + '/' +
+           today.getDate() + '/' +
+           today.getFullYear();
+}
+</pre>
+</section>
+
+<section>
+<h1>ECMAScript 6 Modules</h1>
+<h2>Using</h2>
+<div class="vertical">
+<pre class="prettyprint">
+import {today, shortDate} from './datelib';
+console.log(today);       // Mon May 4 2015 11:04:06...
+console.log(shortDate()); // 5/4/2015
+</pre>
+<pre class="prettyprint build">
+import * as date from "./datelib";
+console.log(date.today);
+console.log(date.shortDate());
+</pre>
+</div>
+</section>
+
+<section>
+<h1>ECMAScript 6 Modules</h1>
+<h2>Defining Mock Data Service</h2>
+<pre class="prettyprint">
+export function findAll() {
+    // implementation
+}
+
+export function findById(id) {
+    // implementation
+}
+
+export var endpoint = "http://localhost:5000";
+</pre>
+</section>
+
+<section>
+<h1>ECMAScript 6 Modules</h1>
+<h2>Using Mock Data Service</h2>
+<pre class="prettyprint">
+import * as employeeService from "employee";
+
+employeeService.findAll().then(function(employees) {
+    console.log(employees);
+});
+</pre>
+</section>
+
+<section>
+    <img src="img/js.png"/>
+    <h1 class="padding-top">Classes</h1>
+</section>
+
+    <section>
+        <h1>ECMAScript 6 Classes</h1>
+<pre class="prettyprint small">
+class Mortgage {
+
+    constructor(amount, years, rate) {
+        this.amount = amount;
+        this.years = years;
+        this.rate = rate;
+    }
+
+    calculate() {
+        // No interest mortgage for ES6 fans
+        return this.amount / (this.years * 12);
+    }
+
+}
+
+let m = new Mortgage(200000, 30, 3);
+console.log(m.calculate());
+</pre>
+    </section>
+
+
+<section>
+<h1>ECMAScript 6 Classes</h1>
+<pre class="prettyprint small">
+class Shape {
+
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    render() {
+        console.log('Rendering shape');
+    }
+
+}
+</pre>
+</section>
+
+<section>
+<h1>ECMAScript 6 Classes</h1>
+<pre class="prettyprint small">
+class Circle extends Shape {
+
+    constructor(x, y, radius) {
+        super(x, y);
+        this.radius = radius;
+    }
+
+    static get pi() {
+        return 3.14159265359;
+    }
+
+    get circumference() {
+        return 2 * Circle.pi * this.radius;
+    }
+
+    render() {
+        console.log('Rendering circle');
+    }
+
+}
+
+</pre>
+</section>
+
+
+<section>
+<h1>ECMAScript 6 Classes</h1>
+<pre class="prettyprint">
+var c = new Circle(0, 0, 10);
+console.log(c.x);             // 0
+c.x = 5;
+console.log(c.x);             // 5
+console.log(Circle.pi);       // 3.14159265359
+console.log(c.circumference); // 62.8318530718
+c.render();                   // Rendering circle
+</pre>
+</section>
+
+<section>
+    <img src="img/js.png"/>
+    <h1 class="padding-top">Template Strings</h1>
+</section>
+
+
+<section>
+<h1>Template Strings</h1>
+<div class="vertical">
+<pre class="prettyprint">
+var str = `Hello World!`
+console.log(str);
+</pre>
+<pre class="prettyprint build">
+var multiLine = `This is an example
+    of a multiline string`;
+console.log(multiLine);
+</pre>
+</div>
+</section>
+
+<section>
+<h1>String Substitution</h1>
+<div class="vertical">
+<pre class="prettyprint small">
+var name = "foo";
+console.log(`Hello, ${name}!`);
+</pre>
+<pre class="prettyprint build small">
+var user = {firstName: "Lisa", lastName: "Wong"};
+console.log(`Hello, ${user.firstName} ${user.lastName}!`);
+</pre>
+</div>
+</section>
+
+
+<section>
+<h1>Expressions</h1>
+<div class="vertical">
+<pre class="prettyprint">
+console.log(`Today is ${new Date()}!`);
+</pre>
+<pre class="prettyprint build">
+var price = 100;
+var exchangeRate = 0.89;
+console.log(`Price in Euro: ${price * exchangeRate}`);
+</pre>
+<pre class="prettyprint build">
+console.log(`Hello, ${user.firstName} ${user.lastName}!
+Today is ${new Date()}`);
+</pre>
+</div>
+</section>
+
+    <section>
+        <img src="img/js.png"/>
+        <h1 class="padding-top">Generators</h1>
+    </section>
+
+<section>
+    <h1>What is a Generator?</h1>
+    <ul class="padding-top">
+        <li>Factory for special type of function declared using <em>function*</em></li>
+        <li>Can be exited at a particular point using <em>yield</em></li>
+        <li>Resumes at same point and in same state when invoked again</li>
+    </ul>
+
+</section>
+
+<section>
+    <h1>Generator Example</h1>
+<pre class="prettyprint">
+function *foo() {
+    yield 1;
+    yield 2;
+    yield 3;
+    yield 4;
+    yield 5;
+}
+
+var it = foo();
+console.log( it.next() ); // { value:1, done:false }
+console.log( it.next() ); // { value:2, done:false }
+console.log( it.next() ); // { value:3, done:false }
+console.log( it.next() ); // { value:4, done:false }
+console.log( it.next() ); // { value:5, done:false }
+console.log( it.next() ); // { value:undefined, done:true }
+</pre>
+</section>
+
+
+<section>
+<img src="img/js.png"/>
+<h1 class="padding-top">Collections</h1>
+</section>
+
+<section>
+<h1>ES5 "Map"</h1>
+<pre class="prettyprint">
+var settings = {};
+settings.server = "http://localhost";
+settings.userName = "foo";
+settings["language"] = "EN";
+</pre>
+<p>Keys have to be strings</p>
+</section>
+
+<section>
+<h1>ES6 Map</h1>
+<pre class="prettyprint">
+var map = new Map();
+map.set("server", "http://localhost");
+map.set("userName", "foo");
+map.get("userName");
+map.has("userName");
+map.delete("userName");
+</pre>
+<p>Keys can be anything</p>
+</section>
+
+<section>
+<h1>WeakMap</h1>
+<!-- <ul class="padding-top">
+<li>Similar to Map</li>
+<li>Keys must be objects</li>
+<li>Doesn't prevent keys from being garbage-collected</li>
+<li>Useful to prevent memory leaks</li>
+<li>Can't be iterated</li>
+</ul> -->
+<pre class="prettyprint">
+var wm1 = new WeakMap(),
+    wm2 = new WeakMap(),
+    wm3 = new WeakMap();
+var o1 = {},
+    o2 = function(){},
+    o3 = window;
+
+wm1.set(o1, 37);
+wm1.set(o2, "azerty");
+wm2.set(o1, o2); // a value can be anything, including an object or a function
+wm2.set(o3, undefined);
+wm2.set(wm1, wm2); // keys and values can be any objects. Even WeakMaps!
+
+wm1.get(o2); // "azerty"
+wm2.get(o2); // undefined, because there is no value for o2 on wm2
+wm2.get(o3); // undefined, because that is the set value
+
+wm1.has(o2); // true
+wm2.has(o2); // false
+wm2.has(o3); // true (even if the value itself is 'undefined')
+
+wm3.set(o1, 37);
+wm3.get(o1); // 37
+
+wm1.has(o1); // true
+wm1.delete(o1);
+wm1.has(o1); // false
+</pre>
+<p>Keys must be object</p>
+</section>
+
+<section>
+<h1>Set</h1>
+Ordered list of unique arbitrary values
+<pre class="prettyprint">
+var colors = new Set();
+cards.add("red");
+cards.add("blue");
+console.log(colors.size); // 2;
+console.log(colors.has("red")); // true;
+items.delete("red");
+</pre>
+</section>
+
+<section>
+<h1>WeakSet</h1>
+<ul class="padding-top">
+    <li>Similar to Set</li>
+    <li>Values must be objects</li>
+    <li>Doesn't prevent values from being garbage-collected</li>
+    <li>Can't be iterated over</li>
+</ul>
+</section>
+
+<section>
+    <h1>Resources</h1>
+    <ul class="padding-top">
+        <li><a href="http://wiki.ecmascript.org/doku.php?id=harmony:specification_drafts">ECMAScript 6 Spec</a></li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_6_support_in_Mozilla">ECMAScript 6 on MDN</a></li>
+        <li><a href="http://www.2ality.com/">2ality.com</a></li>
+        <li><a href="https://github.com/addyosmani/es6-tools">ECMAScript 6 Tools</a></li>
+        <li><a href="http://babeljs.io/">Babel</a></li>
+        <li><a href="https://github.com/google/traceur-compiler">Traceur</a></li>
+    </ul>
+</section>
+
+<section>
+<h1>Thanks!</h1>
+<!-- <p><a href="https://twitter.com/cbar">@cbar</a></p>
+ --></section>
+
+
+</div> <!-- end of '#slides' -->
+
+<!--<button id="menu-btn" class="button button-clear icon ion-navicon"></button>-->
+
+<div id="menu" class="dark-bg">
+    <div class="title">Keypoint</div>
+    <div class="scroller cf">
+        <ol id="list" class="list"></ol>
+    </div>
+</div>
+
+<div id="build-btn-right" style="position: absolute;bottom:0; right:0; width: 150px; height: 150px;border:solid 0px;z-index:100;"></div>
+<div id="build-btn-left" style="position: absolute;bottom:0; left:0; width: 150px; height: 150px;border:solid 0px;z-index:100"></div>
+
+</div>
+
+<script src="cordova.html"></script>
+<script src="lib/jquery.js"></script>
+<script src="lib/fastclick.js"></script>
+<script src="lib/prettify.js"></script>
+<script src="lib/swipeview.js"></script>
+
+<script src="js/keypoint.js"></script>
+<script src="js/slides.js"></script>
+
+</body>
+
+<!-- Mirrored from bar.org/present/es6/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 15 Dec 2015 06:41:51 GMT -->
+</html>
